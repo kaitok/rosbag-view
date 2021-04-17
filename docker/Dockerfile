@@ -1,11 +1,29 @@
 FROM ros:melodic
 
-RUN mkdir -p catkin_ws/src
+# install build tools
+RUN apt-get update && apt-get install -y \
+  python-catkin-tools \
+  && rm -rf /var/lib/apt/lists/*
 
-WORKDIR catkin_ws/src
-RUN catkin_create_pkg beginner_tutorials std_msgs rospy roscpp
+# clone ros package repo
+ENV ROS_WS /opt/ros_ws
+RUN mkdir -p $ROS_WS/src
+WORKDIR $ROS_WS
+RUN git -C src clone \
+  -b $ROS_DISTRO-devel \
+  https://github.com/ros/ros_tutorials.git
 
-WORKDIR beginner_tutorials
+# install ros package dependencies
+RUN apt-get update && \
+  rosdep update && \
+  rosdep install -y \
+  --from-paths \
+  src/ros_tutorials/roscpp_tutorials \
+  --ignore-src && \
+  rm -rf /var/lib/apt/lists/*
 
-COPY ./talker.cpp ./src/
-COPY ./listener.cpp ./src/
+# build ros package source
+RUN catkin config \
+  --extend /opt/ros/$ROS_DISTRO && \
+  catkin build \
+  roscpp_tutorials
