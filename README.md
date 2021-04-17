@@ -6,9 +6,10 @@
 `docker pull ros:melodic`
 
 ### Build Container  
-`docker run -it --name work ros:melodic`
+`docker build . --tag REPOSITORY:TAG`
 
 ### Start Container  
+`docker run -it --name ros-a ros-a:ros-a`
 `docker start 'container name'`
 
 ### Attach to Container  
