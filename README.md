@@ -9,7 +9,7 @@
 `docker build . --tag REPOSITORY:TAG`
 
 ### Start Container  
-`docker run -it --name ros-a ros-a:ros-a`  
+`docker run -it --name ros-a -v /Users/kaitokinjo/work/rosbag-view/data/:/tmp/data ros-a:ros-a`  
 `docker start 'container name'`
 
 ### Attach to Container  
