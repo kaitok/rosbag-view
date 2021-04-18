@@ -27,3 +27,5 @@ RUN catkin config \
   --extend /opt/ros/$ROS_DISTRO && \
   catkin build \
   roscpp_tutorials
+
+WORKDIR /tmp

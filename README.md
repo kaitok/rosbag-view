@@ -5,7 +5,7 @@
 ### Pull image  
 `docker pull ros:melodic`
 
-### Build Container  
+### Build Container Image  
 `docker build . --tag REPOSITORY:TAG`
 
 ### Start Container  
